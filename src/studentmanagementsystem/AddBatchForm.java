@@ -106,12 +106,12 @@ public class AddBatchForm extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String batchTNo=txtBatchNo.getText().trim();
         int batchNo = Integer.parseInt(batchTNo);
-        boolean isBatchExits =Access_BatchCollection.getInstance().getBatchCollection().checkBatchExits(batchNo);
+        boolean isBatchExits =Access_BatchController.getInstance().getBatchCollection().checkBatchExits(batchNo);
         if(isBatchExits){
             JOptionPane.showMessageDialog(this, "This Batch Already In System");
         }else{
             Batch batch = new Batch(batchNo, ENROLLMENTOPEN);
-            boolean isAddBatch = Access_BatchCollection.getInstance().getBatchCollection().addNewBatch(batchNo);
+            boolean isAddBatch = Access_BatchController.getInstance().getBatchCollection().addNewBatch(batchNo);
             if(isAddBatch){
                 JOptionPane.showMessageDialog(this, batchNo+" Batch Added Successfully !");
                     

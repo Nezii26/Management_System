@@ -157,14 +157,14 @@ public class SearchStudentForm extends javax.swing.JFrame {
         if(studentId.isEmpty()){
             JOptionPane.showMessageDialog(this, "Enter your student Id"); 
         }
-        if(Access_StudentCollection.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
-            Student student = Access_StudentCollection.getInstance().getStudentCollection().searchStudent(studentId);
+        if(Access_StudentController.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
+            Student student = Access_StudentController.getInstance().getStudentCollection().searchStudent(studentId);
             if(student !=null){
                 txtName.setText(student.getstudentName());
                 txtNic.setText(student.getstudentNic());
                 txtPrf.setText(String.valueOf(student.getprfMarks()));
                 txtDbms.setText(String.valueOf(student.getdbmsMarks()));
-                txtGPA.setText(String.valueOf(Access_StudentCollection.getInstance().getStudentCollection().calculateGPA(student)));
+                txtGPA.setText(String.valueOf(Access_StudentController.getInstance().getStudentCollection().calculateGPA(student)));
                 
                 
             }

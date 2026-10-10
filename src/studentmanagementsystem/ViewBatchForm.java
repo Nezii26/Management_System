@@ -21,12 +21,12 @@ public class ViewBatchForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);       
         
         DefaultTableModel dtm = (DefaultTableModel)table.getModel();
-        Batch[] allBatches = Access_BatchCollection.getInstance().getBatchCollection().getallBatch();
+        Batch[] allBatches = Access_BatchController.getInstance().getBatchCollection().getallBatch();
         dtm.setRowCount(0);
         for(int i=0; i<allBatches.length; i++){
             Batch batch=allBatches[i];
             String batchName = Integer.toString(batch.getBatchNo());
-            int studentCount = Access_StudentCollection.getInstance().getStudentCollection().getStudentcountBatchwise(batchName);
+            int studentCount = Access_StudentController.getInstance().getStudentCollection().getStudentcountBatchwise(batchName);
             String status;
             
             if(allBatches[i].getBatchStatus()== BatchCollection.ENROLLMENTOPEN){

@@ -165,8 +165,8 @@ public class DbmsMarksUpdateForm1 extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Enter your student Id");
             return;
         }
-        if(Access_StudentCollection.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
-            Student student = Access_StudentCollection.getInstance().getStudentCollection().searchStudent(studentId);
+        if(Access_StudentController.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
+            Student student = Access_StudentController.getInstance().getStudentCollection().searchStudent(studentId);
             if(student !=null){
                 txtName.setText(student.getstudentName());
                 txtNic.setText(student.getstudentNic());
@@ -193,18 +193,18 @@ public class DbmsMarksUpdateForm1 extends javax.swing.JFrame {
         String dbmsUpdatedMarks = txtNewDBMS.getText().trim(); 
         int newDBMS = Integer.parseInt(dbmsUpdatedMarks);
         
-        if(Access_StudentCollection.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
+        if(Access_StudentController.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
             
             if(dbmsUpdatedMarks.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Fill New PRF Markks Field");
             }else{
                 
-                Student student = Access_StudentCollection.getInstance().getStudentCollection().searchStudent(studentId);
+                Student student = Access_StudentController.getInstance().getStudentCollection().searchStudent(studentId);
                 if(student !=null){
                     student.setdbmsMarks(newDBMS);
                 }
                 
-                 boolean isUpdated = Access_StudentCollection.getInstance().getStudentCollection().updateDBMSMarks(newDBMS);
+                 boolean isUpdated = Access_StudentController.getInstance().getStudentCollection().updateDBMSMarks(newDBMS);
                  if(isUpdated){
                       JOptionPane.showMessageDialog(this, "PRF Marks Successfully Updated !");
                  }

@@ -8,21 +8,21 @@ package studentmanagementsystem;
  *
  * @author wwwpa
  */
-public class Access_StudentCollection {
+public class Access_StudentController {
     
-	private StudentCollection studentCollection;
-	private static Access_StudentCollection access_StudentCollection;
+	private StudentController studentController;
+	private static Access_StudentController access_StudentController;
         
-	private Access_StudentCollection(){
-		studentCollection=new StudentCollection();
+	private Access_StudentController(){
+		studentController=new StudentController();
 	}
-	public static Access_StudentCollection getInstance(){
-		if(access_StudentCollection==null){
-			access_StudentCollection=new Access_StudentCollection();
+	public static Access_StudentController getInstance(){
+		if(access_StudentController==null){
+			access_StudentController=new Access_StudentController();
 		}
-		return access_StudentCollection;
+		return access_StudentController;
 	}
-	public StudentCollection getStudentCollection(){
-		return studentCollection;
+	public StudentController getStudentController(){
+		return studentController;
 	}
 }

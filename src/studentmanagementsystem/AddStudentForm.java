@@ -4,6 +4,9 @@
  */
 package studentmanagementsystem;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -157,79 +160,79 @@ public class AddStudentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        String batchNo=txtBatchNo.getText().trim();
-        String nic=txtNic.getText().trim();
-        String name=txtName.getText().trim();
-        String mode=txtLectureMode.getText().trim();
-        
-        if( batchNo.isEmpty() || nic.isEmpty() || name.isEmpty() || mode.isEmpty() ){
-            JOptionPane.showMessageDialog(this,  "Please Fill all fields" );
-                return;
+        String batchNo = txtBatchNo.getText().trim();
+        String nic = txtNic.getText().trim();
+        String name = txtName.getText().trim();
+        String mode = txtLectureMode.getText().trim();
+
+        if (batchNo.isEmpty() || nic.isEmpty() || name.isEmpty() || mode.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please Fill all fields");
+            return;
         }
-        
+
         //String getStudentGenaratedID = Access_StudentCollection.getInstance().getStudentCollection().genarateStudentId(batchNo,mode);
-        
         if (!mode.equals("PR") && !mode.equals("OR")) {
             JOptionPane.showMessageDialog(this, "Invalid lecture mode.");
-                return;
+            return;
         }
+
+        int batchTNo = Integer.parseInt(batchNo);
+         boolean isCheckedBatchStatus = false;
+        try {
+            isCheckedBatchStatus = Access_BatchController.getInstance().getBatchCollection().checkBatchStatus(batchTNo);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddStudentForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AddStudentForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
         
-       try{
-           
-            int batchTNo = Integer.parseInt(batchNo);
-            boolean isCheckedBatchStatus = Access_BatchCollection.getInstance().getBatchCollection().checkBatchStatus(batchTNo);
-           // boolean ischeckNicExists = ;
-        
-           
-            if(isCheckedBatchStatus){
-                if(!Access_StudentCollection.getInstance().getStudentCollection().checkNicExists(nic)){
-            
-                int stID = Access_StudentCollection.getInstance().getStudentCollection().genarateStudentId(batchNo,mode);  
-                String stGID = String.format("%s26%d%03d", mode, batchTNo, (stID + 1));
-                        //mode+26+batchTNo+(stID+1);
-                
-                //if(stID > 0){
-                //    if(mode=="PR"){
-                //        JOptionPane.showMessageDialog(this, mode+26+batchTNo+stID+"Successfully Added");
-                //    }else{
-                //        JOptionPane.showMessageDialog(this, mode+26+batchTNo+stID+"Successfully Added");
-                //    }
+       
+        if (isCheckedBatchStatus) {
+            try {
+                if (!Access_StudentController.getInstance().getStudentController().checkNicExists(nic)) {
                     
-                    Student student=new Student(stGID, name, nic, -2, -2);
-                    boolean isAdded = Access_StudentCollection.getInstance().getStudentCollection().addNewStudent(student);
+                    int stID = Access_StudentController.getInstance().getStudentController().genarateStudentId(batchNo, mode);
+                    String stGID = String.format("%s26%d%03d", mode, batchTNo, (stID + 1));
                     
-                    if(isAdded){
-                        JOptionPane.showMessageDialog(this, "Student Added Successfuly !\nGenerated Student ID : "+ stGID +" Success");
-                    
-                    
-                    txtBatchNo.setText("");
-                    txtNic.setText("");
-                    txtName.setText("");
-                    txtLectureMode.setText("");
-                    
-                    }else{
-                       JOptionPane.showMessageDialog(this, "Failed to Add Student");
+                    Student student = new Student(stGID, name, nic, -2, -2);
+                    boolean isAdded;
+                    try {
+                        isAdded = Access_StudentController.getInstance().getStudentController().addNewStudent(student);
+                        
+                        if (isAdded) {
+                            JOptionPane.showMessageDialog(this, "Student Added Successfuly !\nGenerated Student ID : " + stGID + " Success");
+                            
+                            txtBatchNo.setText("");
+                            txtNic.setText("");
+                            txtName.setText("");
+                            txtLectureMode.setText("");
+                            
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Failed to Add Student");
+                        }
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(AddStudentForm.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-                    
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "This Nic Already Added");
                 }
-            }else{
-                JOptionPane.showMessageDialog(this, "This Batch Enrollment is Closed");
-           
+            } catch (SQLException ex) {
+                Logger.getLogger(AddStudentForm.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AddStudentForm.class.getName()).log(Level.SEVERE, null, ex);
             }
-       }catch (Exception e){
-           JOptionPane.showMessageDialog(this, "ERROR");
-       }
-        
-        
+        } else {
+            JOptionPane.showMessageDialog(this, "This Batch Enrollment is Closed");
 
-        
+        }
+
+
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        //new Student_Management().setVisible(true);
+        new Student_Management().setVisible(true);
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -262,9 +265,9 @@ public class AddStudentForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-         java.awt.EventQueue.invokeLater(() -> 
-         new AddStudentForm().setVisible(true));
-         
+        java.awt.EventQueue.invokeLater(()
+                -> new AddStudentForm().setVisible(true));
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -282,5 +285,4 @@ public class AddStudentForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNic;
     // End of variables declaration//GEN-END:variables
 
-    
 }

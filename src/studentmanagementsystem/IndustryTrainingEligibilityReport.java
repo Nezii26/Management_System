@@ -21,10 +21,10 @@ public class IndustryTrainingEligibilityReport extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         DefaultTableModel dtm = (DefaultTableModel)table.getModel();
-        Access_StudentCollection.getInstance().getStudentCollection().sortStudentName();
+        Access_StudentController.getInstance().getStudentCollection().sortStudentName();
         
         
-        Student[] allStudent = Access_StudentCollection.getInstance().getStudentCollection().getallStudent();
+        Student[] allStudent = Access_StudentController.getInstance().getStudentCollection().getallStudent();
         
         dtm.setRowCount(0);
         
@@ -36,12 +36,12 @@ public class IndustryTrainingEligibilityReport extends javax.swing.JFrame {
             if(student == null){
                 continue;
             }
-            Student bestStudent = Access_StudentCollection.getInstance().getStudentCollection().calculateBestGPA(student);
+            Student bestStudent = Access_StudentController.getInstance().getStudentCollection().calculateBestGPA(student);
             if(bestStudent != null){
                 
                 int prfMarks = student.getprfMarks();
                 int dbmsMarks = student.getdbmsMarks();
-                double totalMarks = Access_StudentCollection.getInstance().getStudentCollection().calculateGPA(student);
+                double totalMarks = Access_StudentController.getInstance().getStudentCollection().calculateGPA(student);
 
                 //double getGpa = Access_StudentCollection.getInstance().getStudentCollection().getGPA(totalMarks);
 

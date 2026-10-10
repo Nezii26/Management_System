@@ -21,26 +21,27 @@ public class batch110 extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         
         DefaultTableModel dtm = (DefaultTableModel)table.getModel();
-        Access_StudentCollection.getInstance().getStudentCollection().sortStudentName();
-        Student[] allStudent = Access_StudentCollection.getInstance().getStudentCollection().getallStudent();
+        Access_StudentController.getInstance().getStudentCollection().sortStudentName();
+        Student[] allStudent = Access_StudentController.getInstance().getStudentCollection().getallStudent();
         dtm.setRowCount(0);
         int batchNo=110;
+        int count=1;
         
         for(int i=0; i<allStudent.length; i++){
             
             
             Student student = allStudent[i];
             
-            if(Access_StudentCollection.getInstance().getStudentCollection().getStudentBatchwise(student,batchNo)){
+            if(Access_StudentController.getInstance().getStudentCollection().getStudentBatchwise(student,batchNo)){
                 
                  int prfMarks = student.getprfMarks();
                  int dbmsMarks = student.getdbmsMarks();
-                 double totalMarks = Access_StudentCollection.getInstance().getStudentCollection().calculateGPA(student);
+                 double totalMarks = Access_StudentController.getInstance().getStudentCollection().calculateGPA(student);
                  
                  //double getGpa = Access_StudentCollection.getInstance().getStudentCollection().getGPA(totalMarks);
                  
-                 Object[] rowData = { i+1, student.getstudentId(), student.getstudentName(), student.getstudentNic(), student.getprfMarks(), student.getdbmsMarks(), totalMarks};
-                 
+                 Object[] rowData = { count, student.getstudentId(), student.getstudentName(), student.getstudentNic(), student.getprfMarks(), student.getdbmsMarks(), totalMarks};
+                 count++;
                  dtm.addRow(rowData);
                 
                 

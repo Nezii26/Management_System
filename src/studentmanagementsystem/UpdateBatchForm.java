@@ -162,9 +162,9 @@ public class UpdateBatchForm extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String batchTNo=txtBatchNo.getText().trim();
         int batchNo = Integer.parseInt(batchTNo);
-        boolean isBatchExits =Access_BatchCollection.getInstance().getBatchCollection().checkBatchExits(batchNo);
+        boolean isBatchExits =Access_BatchController.getInstance().getBatchCollection().checkBatchExits(batchNo);
         if(isBatchExits){
-           int studentCount = Access_StudentCollection.getInstance().getStudentCollection().getStudentcountBatchwise(batchTNo);
+           int studentCount = Access_StudentController.getInstance().getStudentCollection().getStudentcountBatchwise(batchTNo);
            txtStudentCount.setText(String.valueOf(studentCount));
         }else{
             JOptionPane.showMessageDialog(this, "This Batch Not In The System");
@@ -194,7 +194,7 @@ public class UpdateBatchForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Cannot find Enrollment");
             return;
         }
-        boolean isUpdated = Access_BatchCollection.getInstance().getBatchCollection().updateBatchStatus(batchNo,status);
+        boolean isUpdated = Access_BatchController.getInstance().getBatchCollection().updateBatchStatus(batchNo,status);
         if(isUpdated){
             JOptionPane.showMessageDialog(this, batchNo+" Enrollment Updated Successfully !");
         }

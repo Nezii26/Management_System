@@ -151,8 +151,8 @@ public class UpdateStudentForm extends javax.swing.JFrame {
         if(studentId.isEmpty()){
             JOptionPane.showMessageDialog(this, "Enter your student Id"); 
         }
-        if(Access_StudentCollection.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
-            Student student = Access_StudentCollection.getInstance().getStudentCollection().searchStudent(studentId);
+        if(Access_StudentController.getInstance().getStudentCollection().checkStudentIdExists(studentId)){
+            Student student = Access_StudentController.getInstance().getStudentCollection().searchStudent(studentId);
             if(student !=null){
                 txtName.setText(student.getstudentName());
                 txtNic.setText(student.getstudentNic());
@@ -173,7 +173,7 @@ public class UpdateStudentForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Fill all fields");
         }
         
-        Student student = Access_StudentCollection.getInstance().getStudentCollection().searchStudent(studentId);
+        Student student = Access_StudentController.getInstance().getStudentCollection().searchStudent(studentId);
         
         if(student !=null){
             student.setstudentName(name);

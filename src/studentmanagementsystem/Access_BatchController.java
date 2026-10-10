@@ -8,22 +8,22 @@ package studentmanagementsystem;
  *
  * @author wwwpa
  */
-public class Access_BatchCollection {
+public class Access_BatchController {
    
-	private final BatchCollection batchCollection;
-	private static Access_BatchCollection access_BatchCollection;
+	private final BatchController batchController;
+	private static Access_BatchController access_BatchController;
         
-	private Access_BatchCollection(){
-		batchCollection=new BatchCollection();
+	private Access_BatchController(){
+		batchController=new BatchController();
 	}
-	public static Access_BatchCollection getInstance(){
-		if(access_BatchCollection==null){
-			access_BatchCollection=new Access_BatchCollection();
+	public static Access_BatchController getInstance(){
+		if(access_BatchController==null){
+			access_BatchController=new Access_BatchController();
 		}
-		return access_BatchCollection;
+		return access_BatchController;
 	}
-	public BatchCollection getBatchCollection(){
-		return batchCollection;
+	public BatchController getBatchCollection(){
+		return batchController;
 	}
 
 }
